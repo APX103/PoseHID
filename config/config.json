@@ -1,0 +1,12 @@
+{
+    "map": {
+        "Left/Open_Palm": "mouse_move|1000",
+        "Left/Open_Palm+Right/Dis_Thumb_Index_Tip": "mouse_press_left|50",
+        "Left/Open_Palm+Right/Dis_Thumb_Middle_Tip": "mouse_press_right|50"
+    },
+    "lock": {
+        "on": true,
+        "lock": "Left/Closed_Fist+Right/Closed_Fist",
+        "unlock": "left/Thumb_Up+Right/Thumb_Up"
+    }
+}
