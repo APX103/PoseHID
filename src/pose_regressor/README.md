@@ -90,48 +90,41 @@ class HandLandmark(enum.IntEnum):
 
 ``` json
 {
-    handness: {
-        left: {
-            exist: bool,
-            gesture: xx,
-            confidence: 0.9
-        },
-        right: {
-            exist: bool,
-            gesture: xx,
-            confidence: 0.9
-        },
-    }
-    landmarker: {
-        left: [
-            ···
-            左手所有的点
-        ],
-        right: [
-            ···
-            右手所有的点
-        ]
+    "Imagesize": {
+        "Height": null,
+        "Width": null
     },
-    distance(based on image size): {
-        left: {
-            Left/Dis_Thumb_Index_Tip
-            Left/Dis_Thumb_Middle_Tip
-            Left/Dis_Index_Index_Tip
+    "Handness": {
+        "Left": {
+            "exist": false,
+            "gesture": null,
+            "confidence": null
         },
-        right: {
-            Right/Dis_Thumb_Index_Tip
-            Right/Dis_Thumb_Middle_Tip
-            Right/Dis_Index_Index_Tip
+        "Right": {
+            "exist": false,
+            "gesture": null,
+            "confidence":null
+        },
+    },
+    "landmarker": {
+        "Left": [],
+        "Right": []
+    },
+    "Distance": {
+        "Left/Dis_Thumb_Index_Tip": null,
+        "Left/Dis_Thumb_Middle_Tip": null,
+        "Right/Dis_Thumb_Index_Tip": null,
+        "Right/Dis_Thumb_Middle_Tip": null,
+        "Dis_Index_Index_Tip": null
+    },
+    "Angle": {
+        "Left": {
+            "Left/Angel_Thumb_Index_Tip": null
+        },
+        "Right": {
+            "Right/Angel_Thumb_Index_Tip": null
         }
     },
-    angle: {
-        left: {
-            Left/Angel_Thumb_Index_Tip
-        },
-        right: {
-            Right/Angel_Thumb_Index_Tip
-        }
-    },
-    process_time: "0:00"
+    "Process_time": 0.0
 }
 ```
