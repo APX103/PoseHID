@@ -1,12 +1,20 @@
 import cv2
 import time
+import math
 import numpy as np
-from PIL import Image
+from enum import Enum
 
 import mediapipe as mp
 from mediapipe.framework.formats import landmark_pb2
 from mediapipe.tasks import python
 from mediapipe.tasks.python import vision
+
+class normalizedLandmark(Enum):
+    x = 1
+    y = 2
+    z = 3
+    visibility = 4
+    presence = 5
 
 def gesture_templet() -> dict:
     return {
@@ -38,20 +46,16 @@ def gesture_templet() -> dict:
             "Dis_Index_Index_Tip": None
         },
         "Angle": {
-            "Left": {
-                "Left/Angel_Thumb_Index_Tip": None
-            },
-            "Right": {
-                "Right/Angel_Thumb_Index_Tip": None
-            }
+            "Left/Angle_Thumb_Index_Tip": None,
+            "Right/Angle_Thumb_Index_Tip": None
         },
         "Process_time": 0.0
     }
 
-class frame_handler:
-    def __init__(self) -> None:
+class FrameHandler:
+    def __init__(self, task_path: str="gesture_recognizer.task") -> None:
         # gesture
-        with open("gesture_recognizer.task", "rb") as f:
+        with open(task_path, "rb") as f:
             bf = f.read()
         base_options = python.BaseOptions(model_asset_buffer=bf)
         options = vision.GestureRecognizerOptions(base_options=base_options, num_hands=2)
@@ -80,7 +84,7 @@ class frame_handler:
         start_time = time.time()
         
         # flip
-        img = cv2.flip(img, 1)
+        img = cv2.flip(image, 1)
         
         # BGR 2 RGB
         img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
@@ -92,19 +96,19 @@ class frame_handler:
         # gestures" class and confidence
         top_gesture = recognition_result.gestures
         # handness
-        handness = recognition_result.handness
+        handedness = recognition_result.handedness
         # hand landmarks
         hand_landmarks = recognition_result.hand_landmarks
         
         # for each hand
         for i, hand_landmarkz in enumerate(hand_landmarks):
-            handness_str = handness[i][0].category_name
-            templet["Handness"][handness_str]["exist"] = True
+            handness_str = handedness[i][0].category_name
             
+            templet["Handness"][handness_str]["exist"] = True
             templet["Handness"][handness_str]["gesture"] = top_gesture[i][0].category_name
             templet["Handness"][handness_str]["confidence"] = top_gesture[i][0].score
-
-            templet["landmarker"][handness_str] = hand_landmarkz
+            # templet["Landmarker"][handness_str] = hand_landmarkz
+            templet["Landmarker"][handness_str] = [[i.x, i.y, i.z, i.visibility, i.presence] for i in hand_landmarkz]
 
             thumb_tip_x = int(hand_landmarkz[4].x * w)
             thumb_tip_y = int(hand_landmarkz[4].y * h)
@@ -115,14 +119,16 @@ class frame_handler:
 
             templet["Distance"][handness_str + "/Dis_Thumb_Index_Tip"] = np.linalg.norm([index_tip_x-thumb_tip_x, index_tip_y-thumb_tip_y])
             templet["Distance"][handness_str + "/Dis_Thumb_Middle_Tip"] = np.linalg.norm([middle_tip_x-thumb_tip_x, middle_tip_y-thumb_tip_y])
+            templet["Angle"][handness_str + "/Angle_Thumb_Index_Tip"] = math.atan2(index_tip_y-thumb_tip_y, index_tip_x-thumb_tip_x)
             
-        # TODO cal dis between 2 index tip 
+            # TODO calculate angle
+            
+        # calculate distance between 2 index finger tips
         if templet["Handness"]["Left"]["exist"] and templet["Handness"]["Right"]["exist"]:
-            templet["Distance"]["Dis_Index_Index_Tip"] = np.linalg.norm(int(hand_landmarks[0][8].x - hand_landmarks[1][8].x) * w, int(hand_landmarks[0][8].y - hand_landmarks[1][8].y) * h)
+            templet["Distance"]["Dis_Index_Index_Tip"] = np.linalg.norm([int((hand_landmarks[0][8].x - hand_landmarks[1][8].x) * w), int((hand_landmarks[0][8].y - hand_landmarks[1][8].y) * h)])
         
         end_time = time.time()
         # count process time
         templet["Process_time"] = end_time - start_time
-
 
         return templet
