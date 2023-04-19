@@ -118,8 +118,8 @@ class HandLandmark(enum.IntEnum):
         "Dis_Index_Index_Tip": null
     },
     "Angle": {
-        "Left/Angle_Thumb_Index_Tip": None,
-        "Right/Angle_Thumb_Index_Tip": None
+        "Left/Angle_Thumb_Index_Tip": null,
+        "Right/Angle_Thumb_Index_Tip": null
     },
     "Process_time": 0.0
 }
