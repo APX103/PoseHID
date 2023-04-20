@@ -1,33 +1,42 @@
 # PoseHID
 
-> base on mediapipe's hand pose regression
+> hand pose control PC or some other thing (I mean anything)
 
 ## key point
 
-1. mediapipe(0.9.1.0)
+1. mediapipe(0.9.3.0)
 2. pyautogui(0.9.53)
 
-## Arch
+## Architecture
 
-基于mediapipe的手部关键点检测 + 姿势回归
+``` log
 
-基于python库 | 基于tflite转onnx | 基于前者再转TensorRT
+    hand landmark detect and gesture regression based on `mediapipe`
 
-+++++++++++++++++++++++++++++++++++++
+      |   python   |   tflite  |  onnx(tf2onnx)  |  TensorRT  |
 
-基于姿态解算 的 机器操作
+-----------------------------------------------------------------------------
 
-PC | 带GPU的PC | Jetson和RPI4 | 其他不带操作系统、不带python、不能上tf的平台
+              operation based on hand pose & landmark
 
-+++++++++++++++++++++++++++++++++++++
+PC | PC with GPU | Jetson | RPI4 | some other device without python or linux
 
-基于HID模拟的模拟USB + 模拟键盘组合键
+-----------------------------------------------------------------------------
 
-使用外部简易可配置的配置文件完成 姿态组合 => 机器操作 的映射
+    mouse and keyboard simulation based on HID(Human Interface Device)
 
-## 技术选项
+          map Pose to Operation, based on a json config file
+```
 
-> 目前只走能运行python, tf, mediapipe的路线
+## Technology Selection
 
-1. 使用mediapipe完成手部关键点捕捉 + 姿态回归
-2. 使用pyautogui完成python控制键盘和鼠标
+### PC(Windows)
+
+> python + mediapipe
+
+1. Get hand landmark and gesture by `mediapipe`
+2. Control mouse and keyboard using `pyautogui`
+
+## Limitations
+
+1. `pyautogui` not work on `Ubuntu` OS.

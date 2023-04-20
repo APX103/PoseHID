@@ -1,10 +1,10 @@
 # Config
 
-> 本目录用于存放config, 这里介绍姿态和操作的定义，以及config写法
+> put config in this dir. I introduce the definition of attitude and operation here, as well as the syntax of the configuration.
 
-## 姿态
+## Pose
 
-1. 能识别的姿态目前共计7种 [i.e. 👍, 👎, ✌️, ☝️, ✊, 👋, 🤟]
+1. 7 poses can be detected [i.e. 👍, 👎, ✌️, ☝️, ✊, 👋, 🤟]
    1. Closed_Fist
    2. Open_Palm
    3. Pointing_Up
@@ -12,54 +12,51 @@
    5. Thumb_Up
    6. Victory
    7. ILoveYou
-2. 能计算的距离的目前共计2种
-   1. 食指和拇指的距离(Dis_Thumb_Index_Tip)
-   2. 中指和拇指的距离(Dis_Thumb_Middle_Tip)
-   3. 食指指尖之间的距离(Dis_Index_Index_Tip)
-3. 能计算角度的共计1种
-   1. 食指与拇指连线的角度(Angel_Thumb_Index_Tip)
+2. 3 kinds of distance
+   1. Distance between thumb and index finger(Dis_Thumb_Index_Tip)
+   2. Distance between thumb and middle finger(Dis_Thumb_Middle_Tip)
+   3. Distance between index and index finger(Dis_Index_Index_Tip)
+3. 1 kind of angle
+   1. Angle between thumb and index finger(Angel_Thumb_Index_Tip)
 
-## 姿势语义定义
+## Affordance semantics definition.
 
-### 要点
+### Keypoint
 
-1. 先左手后右手
-2. 使用加号(+)连接
-3. 左手的姿势添加`Left/`前缀, 右手的姿势添加`Right/`前缀
-4. 目前的建议是左手的1种手势用于1种操作，也就是说，目前最好仅仅支持`7`种操作
+1. Left to Right
+2. concat with `+`
+3. Left hand gesture add `Left/` prefix, Right hand gesture add `Right/` prefix
+4. Currently, the recommendation is that one gesture of the left hand is used for one operation. Therefore, it is best to support only 7 operations at present.
 
-### 语义定义
+### Semantics definition
 
-> 目前定义以下语义，支持语义扩展
+> Currently, the following semantics are defined, and support for semantic extension is provided.
 
-1. 左手选择功能，右手实现逻辑
-   1. 例如，左手open_palm,检测右手(`Right/Wrist`)的移动
-2. 双手同时实现一个功能(直接映射，手势部保持时失效)
-3. 双手确定某种功能，则双手都能在之后实现逻辑，然后双手关闭它(需要设计，否则会很难)
+1. Left hand operates the function, right hand implements the logic.
+   1. for example, left hand `Open_Palm` means mouse simulation, right hand wrist point(`Right/Wrist`) present position
+2. Both hands achieve the same function simultaneously.
+3. If both hands determine a certain function, both hands can implement the logic after that, and then both hands can close it.
 
-惯用1,2
+using 1,2 yet
 
-## 操作
+## Operations
 
-> 由于操作的实时性，不建议、也暂时没有设置键盘敲击映射，如有需求可扩展
+> Due to the real-time nature of the operation, it is not recommended and there is no need to set keyboard keystroke mapping at present. If there is a demand, it can be expanded.
 
-1. 键盘长按/组合键盘长按(动作结束之后自动松开)
-2. 鼠标移动
-3. 鼠标按住
-4. 快捷键组合
+1. mouse move
+2. mouse press
+3. keyboard input combination
 
-### 操作的尺度
+### Operation scale
 
-对于需要尺度(参数)的操作，使用`|`分隔操作与尺度(参数)
+Operations always need a scale，split op and scale with `|`
 
-## Config 写法
+## Config Syntax
 
-1. json格式，由`map`和`lock`定义
-2. `lock`中定义了是否开启锁，开锁和关锁的快捷键定义
-3. `map`定义了pose => operation的映射
-   1. 左手单一姿势确认种类
-   2. 右手动作需与左手姿势配合才能定义
-4. 以下是demo
+1. json format，define with `map` and `lock`
+2. `lock` contains switch pose and lock status
+3. `map` define mapping from pose to operation
+4. demo as follows
 
 ``` json
 {

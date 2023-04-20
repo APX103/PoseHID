@@ -1,6 +1,6 @@
 # pose regressor
 
-> 用于获取收的姿势
+> get gesture of hands
 
 ## get gesture
 
@@ -55,7 +55,7 @@ hand_landmarks [[NormalizedLandmark(x=0.7983127236366272, y=0.8592564463615417, 
                  NormalizedLandmark(x=-0.06722646951675415, y=0.3267180323600769, z=-0.11539426445960999, visibility=0.0, presence=0.0)]]
 ```
 
-> 需要说明，landmark的顺序如下
+> Order of landmark as follows
 
 ``` python
 class HandLandmark(enum.IntEnum):
@@ -86,7 +86,7 @@ class HandLandmark(enum.IntEnum):
 
 ### function output
 
-在此定义一下获取的手部姿态、landmark、指尖距离等信息
+> output dict format definition
 
 ``` json
 {
