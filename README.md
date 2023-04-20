@@ -37,6 +37,31 @@ PC | PC with GPU | Jetson | RPI4 | some other device without python or linux
 1. Get hand landmark and gesture by `mediapipe`
 2. Control mouse and keyboard using `pyautogui`
 
+## Get Start
+
+### Config
+
+Follow the instruction of [readme](config/README.md)/[中文文档](config/README-zh.md) 
+
+### Run
+
+```shell
+# need conda, need a conda env called 'PoseHID'
+conda activate PoseHID
+pip install -r requirements.txt
+python main.py
+```
+
+### Test
+
+```shell
+# need conda, need a conda env called 'PoseHID'
+conda activate PoseHID
+pip install -r requirements.txt
+pytest
+```
+
+
 ## Limitations
 
 1. `pyautogui` not work on `Ubuntu` OS.

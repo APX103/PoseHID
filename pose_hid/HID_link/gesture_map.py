@@ -5,13 +5,17 @@
 # operation map
 # TODO 写完这个文件，主要从config读取
 
-import sys
+import os
 import json
 
-sys.path.append("./")
+ws = os.path.dirname(os.path.realpath(__file__)) + "/../.."
 
-with open('../../config/config.json', 'r') as f:
-    config = json.loads(f.read())
+
+def parse_config(config_path: str = ws + '/config/config.json'):
+    with open(config_path, 'r') as f:
+        config = json.loads(f.read())
+    return config
+
 
 g = [
     "None",
@@ -24,10 +28,9 @@ g = [
     "ILoveYou",
 ]
 
-lg = ["Left_" + i for i in g if i != "None"]
-rg = ["Right_" + i for i in g if i != "None"]
+lg = ["Left/" + i for i in g if i != "None"]
+rg = ["Right/" + i for i in g if i != "None"]
 
 gesture_map = {
-    
-}
 
+}
