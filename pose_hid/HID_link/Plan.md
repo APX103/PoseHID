@@ -6,7 +6,7 @@
 
 1. Use opencv capture pics from camera
 2. Use mediapipe get hands/hands' keypoint/hands' gesture
-3. Get 30 pics per seconds, pose data are highly variable, need noise reduction 
+3. Get 30 pics per seconds, pose data are highly variable, need noise reduction
 
 ## Plans of implementation
 
@@ -18,4 +18,4 @@
 ### OP buffer
 
 1. A buffer of gesture in a time region. (slide window)
-2. If triggers more than 50%(**hyperparameter**) in buffer (slide window), trigger. 
+2. If triggers more than 50%(**hyperparameter**) in buffer (slide window), trigger.
