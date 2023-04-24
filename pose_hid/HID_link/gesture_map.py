@@ -33,6 +33,13 @@ g = [
 lg = ["Left/" + i for i in g if i != "None"]
 rg = ["Right/" + i for i in g if i != "None"]
 
-gesture_map = {
-
-}
+# # like this?!
+# gesture_map = {
+#     "Closed_Fist": {},
+#     "Open_Palm": {},
+#     "Pointing_Up": {},
+#     "Thumb_Down": {},
+#     "Thumb_Up": {},
+#     "Victory": {},
+#     "ILoveYou": {}
+# }

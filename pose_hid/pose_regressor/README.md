@@ -133,7 +133,7 @@ class HandLandmark(enum.IntEnum):
         "Height": 300,
         "Width": 533
     },
-    "Handness": {
+    "Handedness": {
         "Left": {
             "exist": true,
             "gesture": "None",
