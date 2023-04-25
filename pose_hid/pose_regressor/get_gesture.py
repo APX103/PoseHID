@@ -75,7 +75,7 @@ class FrameHandler:
         """get gesture info from per frame
 
         Returns:
-            dict: dict of hand landmark and etc. info
+            dict: dict of hand landmark etc. info
         """
         templet = gesture_templet()
 
@@ -138,3 +138,8 @@ class FrameHandler:
         templet["Process_time"] = end_time - start_time
 
         return templet
+
+    def get_gesture_and_frame(self, image: np.array):
+        pose_info = self.get_gesture(image)
+        # TODO 完善画图，显示左右手的手势和关键点距离
+        return image, pose_info

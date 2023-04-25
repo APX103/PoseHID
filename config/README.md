@@ -53,22 +53,13 @@ Operations always need a scale，split op and scale with `|`
 
 ## Config Syntax
 
-1. json format，define with `map` and `lock`
-2. `lock` contains switch pose and lock status
-3. `map` define mapping from pose to operation
-4. demo as follows
+1. yaml format，define with `pose` and `op`
+2.  demo as follows
 
-``` json
-{
-    "map": {
-        "Left/Open_Palm": "mouse_move|1000",
-        "Left/Open_Palm+Right/Dis_Thumb_Index_Tip": "mouse_press_left|50",
-        "Left/Open_Palm+Right/Dis_Thumb_Middle_Tip": "mouse_press_right|50"
-    },
-    "lock": {
-        "on": true,
-        "lock": "Left/Closed_Fist+Right/Closed_Fist",
-        "unlock": "left/Thumb_Up+Right/Thumb_Up"
-    }
-}
+``` yaml
+Left/Open_Palm: mouse_move|1000
+Left/Open_Palm+Right/Dis_Thumb_Index_Tip: mouse_press_left|30
+Left/Open_Palm+Right/Dis_Thumb_Middle_Tip: mouse_press_right|30
+Left/Closed_Fist+Right/Closed_Fist: lock
+Left/Thumb_Up+Right/Thumb_Up: unlock
 ```

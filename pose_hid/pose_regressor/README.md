@@ -106,7 +106,7 @@ class HandLandmark(enum.IntEnum):
             "confidence":null
         },
     },
-    "landmarker": {
+    "landmark": {
         "Left": [],
         "Right": []
     },
@@ -145,7 +145,7 @@ class HandLandmark(enum.IntEnum):
             "confidence": 0.7562047243118286
         }
     },
-    "Landmarker": {
+    "Landmark": {
         "Left": [
             [
                 0.16490957140922546,

@@ -10,12 +10,12 @@
 
 ## Plans of implementation
 
-### OP directly
+### OP directly(deprecated!)
 
 1. Every frame can get an operation.
 2. If it triggers, it won't trigger again for the next half second.
 
-### OP buffer
+### OP buffer(slide window, default 5 pic)
 
 1. A buffer of gesture in a time region. (slide window)
 2. If triggers more than 50%(**hyperparameter**) in buffer (slide window), trigger.
