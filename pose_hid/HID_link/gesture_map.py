@@ -32,8 +32,7 @@ g = [
 lg = ["Left/" + i for i in g if i != "None"]
 rg = ["Right/" + i for i in g if i != "None"]
 
-gesture_map = {i: {"func": None, "params": None, "sub_pose": {}} for i in lg}
-sub_func_temp = {"func": None, "params": None}
+gesture_map = {i: {} for i in lg}
 
 
 def map_pose_method(config: dict) -> dict:
@@ -41,8 +40,7 @@ def map_pose_method(config: dict) -> dict:
         k = [k] if "+" not in k else k.split("+")
         v = [v] if "|" not in v else v.split("|")
         if len(k) == 1:
-            gesture_map[k[0]]["func"] = v[0]
-            gesture_map[k[0]]["params"] = v[1:]
+            gesture_map[k[0]][v[0]] = v[1:]
             continue
-        gesture_map[k[0]]["sub_pose"][k[1]] = {"func": v[0], "params": v[1:]}
+        gesture_map[k[0]][v[0]] = [k[1], *v[1:]]
     return gesture_map
