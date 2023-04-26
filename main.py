@@ -46,8 +46,8 @@ def main(if_show_video: bool = False) -> None:
             pose_info = frame_handler.get_gesture(frame)
         l_pose = pose_window.rolling(pose_info)
         # TODO add slide for right hands func(like mouse movement)
-        if l_pose:
-            for k, v in gesture_map[l_pose].items():
+        if l_pose != "None" and l_pose:
+            for k, v in gesture_map["Left/" + l_pose].items():
                 exec_method(method_map, pose_info, k, v)
         key_pressed = cv2.waitKey(60)
         if key_pressed in [ord('q'), 27]:
@@ -57,4 +57,4 @@ def main(if_show_video: bool = False) -> None:
 
 
 if __name__ == "__main__":
-    pass
+    main(True)

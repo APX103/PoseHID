@@ -16,42 +16,42 @@ class HIDLink:
         self.gesture_map = map_pose_method(parse_config())
 
     def mouse_move(self, pose_info: dict, thresh_hold: float = 1.2):
-        if self.lock_st:
+        if self.lock_st or not pose_info["Handedness"]["Right"]["exist"]:
             return
         w, h = pose_info["Landmark"]["Right"][12][0], pose_info["Landmark"]["Right"][12][1]
-        operator.mouse_move(w * thresh_hold, h * thresh_hold)
+        operator.mouse_move(w * float(thresh_hold), h * float(thresh_hold))
 
     def mouse_press_left(self, pose_info: dict, func: str, thresh_hold: int = 30):
-        if self.lock_st:
+        if self.lock_st or not pose_info["Handedness"]["Right"]["exist"]:
             return
         dis_t_i = pose_info["Distance"][func]
-        if dis_t_i < thresh_hold and "left" not in operator.pressed_mouse_button:
+        if dis_t_i < int(thresh_hold) and "left" not in operator.pressed_mouse_button:
             operator.mouse_press()
-        elif dis_t_i > thresh_hold and "right" in operator.pressed_mouse_button:
+        elif dis_t_i > int(thresh_hold) and "right" in operator.pressed_mouse_button:
             operator.mouse_release()
 
     def mouse_press_right(self, pose_info: dict, func: str, thresh_hold: int = 30):
-        if self.lock_st:
+        if self.lock_st or not pose_info["Handedness"]["Right"]["exist"]:
             return
         dis_t_m = pose_info["Distance"][func]
-        if dis_t_m < thresh_hold and "right" not in operator.pressed_mouse_button:
+        if dis_t_m < int(thresh_hold) and "right" not in operator.pressed_mouse_button:
             operator.mouse_press("right")
-        elif dis_t_m > thresh_hold and "right" in operator.pressed_mouse_button:
+        elif dis_t_m > int(thresh_hold) and "right" in operator.pressed_mouse_button:
             operator.mouse_release("right")
 
     def mouse_click_left(self, pose_info: dict, func: str, thresh_hold: int = 30):
-        if self.lock_st:
+        if self.lock_st or not pose_info["Handedness"]["Right"]["exist"]:
             return
         dis_t_i = pose_info["Distance"][func]
-        if dis_t_i < thresh_hold:
+        if dis_t_i < int(thresh_hold):
             w, h = pose_info["Landmark"]["Right"][12][0], pose_info["Landmark"]["Right"][12][1]
             operator.mouse_click(w, h)
 
     def mouse_click_right(self, pose_info: dict, func: str, thresh_hold: int = 30):
-        if self.lock_st:
+        if self.lock_st or not pose_info["Handedness"]["Right"]["exist"]:
             return
         dis_t_m = pose_info["Distance"][func]
-        if dis_t_m < thresh_hold:
+        if dis_t_m < int(thresh_hold):
             w, h = pose_info["Landmark"]["Right"][12][0], pose_info["Landmark"]["Right"][12][1]
             operator.mouse_click(w, h, button="right")
 
@@ -74,5 +74,3 @@ class HIDLink:
             for j in self.gesture_map[i].keys():
                 maps[j] = eval(f"self.{j}")
         return maps
-
-
