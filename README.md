@@ -64,4 +64,4 @@ pytest
 
 ## Limitations
 
-1. `pyautogui` not work on `Ubuntu` OS.
+WIP
