@@ -1,4 +1,5 @@
 from typing import Tuple
+import argparse
 
 import cv2
 from collections import Counter
@@ -6,6 +7,13 @@ from collections import Counter
 from pose_hid.HID_link.gesture_map import parse_config, map_pose_method
 from pose_hid.pose_regressor.get_gesture import FrameHandler
 from pose_hid.HID_link.hid_link import HIDLink
+
+
+def parse_arg():
+    parser = argparse.ArgumentParser("PoseHID Program. Control mouse with camera!!!")
+    parser.add_argument("--show_window", action=argparse.BooleanOptionalAction, 
+                        help="Set to False if there is no need to show camera output.")
+    return parser.parse_args()
 
 
 class PoseWindow:
@@ -39,6 +47,7 @@ def main(if_show_video: bool = False) -> None:
             print('Capture image failed, Exit.\n')
             break
         if if_show_video:
+            print("show windows")
             frame, pose_info = frame_handler.get_gesture_and_frame(frame)
             cv2.imshow('Pose_HID', frame)
             pass
@@ -57,4 +66,5 @@ def main(if_show_video: bool = False) -> None:
 
 
 if __name__ == "__main__":
-    main(True)
+    args = parse_arg()
+    main(args.show_window)
